@@ -47,19 +47,21 @@
         
         /* 剪裁辅助线 */
         .crop-marks {
-            position: relative;
+            position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
             pointer-events: none;
+            display: none; /* 隐藏剪裁辅助线 */
         }
         
         .crop-mark {
-            position: relative;
+            position: absolute;
             border-style: dashed;
             border-color: #ccc;
             border-width: 0;
+            display: none; /* 隐藏剪裁辅助线 */
         }
         
         .crop-mark.top {
@@ -386,12 +388,14 @@
 <body>
     <div class="page">
         <!-- 剪裁辅助线 -->
+        <!-- 注释掉剪裁辅助线
         <div class="crop-marks">
             <div class="crop-mark top"></div>
             <div class="crop-mark bottom"></div>
             <div class="crop-mark left"></div>
             <div class="crop-mark right"></div>
         </div>
+        -->
         
         <!-- 行程标题区 -->
         <div class="header">
