@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>济州岛2天1夜旅游规划表</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --secondary-color: #f39c12;
+            --accent-color: #d35400;
+            --text-color: #34495e;
+            --light-gray: #f1f3f4;
+            --medium-gray: #dadce0;
+            --dark-gray: #5f6368;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-color);
+            background-color: white;
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            padding: 10mm;
+            position: relative;
+        }
+        
+        .page {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto auto;
+            grid-gap: 10px;
+        }
+        
+        /* 剪裁辅助线 */
+        .crop-marks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .crop-mark {
+            position: absolute;
+            border-style: dashed;
+            border-color: #ccc;
+            border-width: 0;
+        }
+        
+        .crop-mark.top {
+            top: 5mm;
+            left: 0;
+            right: 0;
+            border-top-width: 1px;
+        }
+        
+        .crop-mark.bottom {
+            bottom: 5mm;
+            left: 0;
+            right: 0;
+            border-top-width: 1px;
+        }
+        
+        .crop-mark.left {
+            left: 5mm;
+            top: 0;
+            bottom: 0;
+            border-left-width: 1px;
+        }
+        
+        .crop-mark.right {
+            right: 5mm;
+            top: 0;
+            bottom: 0;
+            border-left-width: 1px;
+        }
+        
+        /* 标题区域 */
+        .header {
+            text-align: center;
+            padding: 40px 15px;
+            background-color: #fff8e1;
+            border-radius: 8px;
+            border-bottom: 3px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 180px;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.visitjeju.net/ckImage/202112/20211213003324328.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #e67e22;
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .header p {
+            font-size: 16px;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+            color: #7f8c8d;
+        }
+        
+        /* 行程概览 */
+        .overview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .overview-day {
+            background-color: white;
+            padding: 10px;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .overview-day h3 {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+        
+        .overview-day h3 i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+        
+        .overview-day ul {
+            list-style-type: none;
+            padding-left: 26px;
+        }
+        
+        .overview-day li {
+            margin-bottom: 4px;
+            display: flex;
+            align-items: baseline;
+            font-size: 14px;
+        }
+        
+        .overview-day li i {
+            width: 16px;
+            margin-right: 8px;
+            color: var(--dark-gray);
+            font-size: 12px;
+        }
+        
+        /* 详细时间表 */
+        .schedule {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .day-schedule {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+        
+        .day-schedule caption {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            text-align: left;
+            padding: 8px 10px;
+            font-size: 16px;
+            border-radius: 6px 6px 0 0;
+        }
+        
+        .day-schedule th {
+            background-color: var(--light-gray);
+            padding: 8px 10px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 14px;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .day-schedule td {
+            padding: 8px 10px;
+            border: 1px solid var(--medium-gray);
+            font-size: 14px;
+        }
+        
+        .day-schedule i {
+            margin-right: 5px;
+            color: var(--dark-gray);
+        }
+        
+        /* 交通信息 */
+        .transportation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .transportation h2 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+        
+        .transportation-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .transportation-item i {
+            width: 20px;
+            margin-right: 8px;
+            color: var(--dark-gray);
+        }
+        
+        /* 住宿与餐饮 */
+        .accommodation {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .accommodation-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
+            padding: 10px;
+        }
+        
+        .accommodation-section h2 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+        
+        .accommodation-item {
+            background-color: white;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .accommodation-item h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .accommodation-item h3 i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+        
+        .accommodation-item p {
+            margin-left: 24px;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        
+        /* 实用信息 */
+        .practical-info {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .practical-info h2 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-item i {
+            width: 20px;
+            margin-right: 8px;
+            color: var(--dark-gray);
+        }
+        
+        /* 打印按钮 */
+        .print-button {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .print-button button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-button button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .crop-marks {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- 剪裁辅助线 -->
+        <div class="crop-marks">
+            <div class="crop-mark top"></div>
+            <div class="crop-mark bottom"></div>
+            <div class="crop-mark left"></div>
+            <div class="crop-mark right"></div>
+        </div>
+        
+        <!-- 行程标题区 -->
+        <div class="header">
+            <div class="header-content">
+                <h1>济州岛2天1夜旅游规划表</h1>
+                <p><i class="fas fa-calendar-alt"></i> 日期：2024年6月24日 - 2024年6月25日</p>
+                <p><i class="fas fa-cloud-sun"></i> 天气预报：晴转多云，22°C-27°C</p>
+            </div>
+        </div>
+        
+        <!-- 行程概览区 -->
+        <div class="overview">
+            <div class="overview-day">
+                <h3><i class="fas fa-calendar-day"></i>第一天 (6月24日)</h3>
+                <ul>
+                    <li><i class="fas fa-umbrella-beach"></i>咸德海水浴场 - 济州岛北部海滩</li>
+                    <li><i class="fas fa-water"></i>涉地可支 - 海岸景观</li>
+                    <li><i class="fas fa-camera"></i>咸德周边摄影 - 海岸风光</li>
+                    <li><i class="fas fa-utensils"></i>品尝新鲜海鲜</li>
+                </ul>
+            </div>
+            <div class="overview-day">
+                <h3><i class="fas fa-calendar-day"></i>第二天 (6月25日)</h3>
+                <ul>
+                    <li><i class="fas fa-water"></i>中文海滩冲浪 - 济州最佳冲浪点</li>
+                    <li><i class="fas fa-tree"></i>汉拿山国家公园 - 韩国最高峰</li>
+                    <li><i class="fas fa-shopping-bag"></i>济州市区购物</li>
+                    <li><i class="fas fa-coffee"></i>特色咖啡馆体验</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 详细时间表区 -->
+        <div class="schedule">
+            <table class="day-schedule">
+                <caption><i class="fas fa-calendar-day"></i> 第一天：咸德海滩探索 (6月24日)</caption>
+                <thead>
+                    <tr>
+                        <th width="15%">时间</th>
+                        <th width="25%">活动</th>
+                        <th width="35%">地点</th>
+                        <th width="25%">详情</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>08:00-10:30</td>
+                        <td><i class="fas fa-umbrella-beach"></i>咸德海水浴场</td>
+                        <td>济州岛北部，咸德洞</td>
+                        <td>门票：免费<br>清澈碧蓝的海水浴场</td>
+                    </tr>
+                    <tr>
+                        <td>10:30-11:30</td>
+                        <td><i class="fas fa-utensils"></i>早午餐</td>
+                        <td>咸德海滩附近餐厅</td>
+                        <td>推荐：海鲜粥、章鱼料理</td>
+                    </tr>
+                    <tr>
+                        <td>12:00-14:00</td>
+                        <td><i class="fas fa-water"></i>涉地可支</td>
+                        <td>西归浦市</td>
+                        <td>门票：免费<br>著名海岸景观</td>
+                    </tr>
+                    <tr>
+                        <td>14:30-15:30</td>
+                        <td><i class="fas fa-utensils"></i>午餐</td>
+                        <td>西归浦市当地餐厅</td>
+                        <td>推荐：黑猪肉烤肉</td>
+                    </tr>
+                    <tr>
+                        <td>16:00-18:00</td>
+                        <td><i class="fas fa-camera"></i>咸德周边摄影</td>
+                        <td>咸德海滩及周边</td>
+                        <td>傍晚海景最佳拍摄时间<br>可拍摄日落</td>
+                    </tr>
+                    <tr>
+                        <td>18:30-20:00</td>
+                        <td><i class="fas fa-utensils"></i>晚餐</td>
+                        <td>咸德附近海鲜餐厅</td>
+                        <td>推荐：鲍鱼、海鲜火锅</td>
+                    </tr>
+                    <tr>
+                        <td>20:30-</td>
+                        <td><i class="fas fa-bed"></i>休息</td>
+                        <td>酒店</td>
+                        <td>入住酒店休息</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <table class="day-schedule">
+                <caption><i class="fas fa-calendar-day"></i> 第二天：冲浪与文化体验 (6月25日)</caption>
+                <thead>
+                    <tr>
+                        <th width="15%">时间</th>
+                        <th width="25%">活动</th>
+                        <th width="35%">地点</th>
+                        <th width="25%">详情</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>08:00-11:30</td>
+                        <td><i class="fas fa-water"></i>中文海滩冲浪</td>
+                        <td>济州岛南部，中文海滩</td>
+                        <td>冲浪课程：约60,000韩元<br>包含教练和冲浪板租赁</td>
+                    </tr>
+                    <tr>
+                        <td>12:00-13:00</td>
+                        <td><i class="fas fa-utensils"></i>午餐</td>
+                        <td>中文海滩附近餐厅</td>
+                        <td>推荐：海鲜BBQ、石锅拌饭</td>
+                    </tr>
+                    <tr>
+                        <td>13:30-15:30</td>
+                        <td><i class="fas fa-tree"></i>汉拿山国家公园</td>
+                        <td>济州岛中央</td>
+                        <td>门票：1,600韩元<br>短途徒步路线</td>
+                    </tr>
+                    <tr>
+                        <td>16:00-18:00</td>
+                        <td><i class="fas fa-shopping-bag"></i>济州市区购物</td>
+                        <td>济州市中心</td>
+                        <td>推荐：化妆品、济州特产</td>
+                    </tr>
+                    <tr>
+                        <td>18:30-20:00</td>
+                        <td><i class="fas fa-utensils"></i>晚餐</td>
+                        <td>济州市中心餐厅</td>
+                        <td>推荐：济州黑猪肉、海鲜</td>
+                    </tr>
+                    <tr>
+                        <td>20:00-21:00</td>
+                        <td><i class="fas fa-coffee"></i>特色咖啡体验</td>
+                        <td>济州咖啡馆</td>
+                        <td>品尝济州特色柑橘咖啡</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 交通信息区 -->
+        <div class="transportation">
+            <h2><i class="fas fa-route"></i> 交通信息</h2>
+            <div class="transportation-item">
+                <i class="fas fa-car"></i>
+                <div>
+                    <p><strong>主要交通方式：</strong>租车自驾或公交巴士</p>
+                    <p>推荐租车自驾，济州岛环岛公路行驶舒适，景点间距离较远。</p>
+                </div>
+            </div>
+            <div class="transportation-item">
+                <i class="fas fa-road"></i>
+                <div>
+                    <p><strong>路线规划：</strong></p>
+                    <p>酒店→咸德海水浴场：约30分钟车程</p>
+                    <p>咸德海水浴场→涉地可支：约60分钟车程</p>
+                    <p>涉地可支→回咸德：约60分钟车程</p>
+                    <p>酒店→中文海滩：约45分钟车程</p>
+                    <p>中文海滩→汉拿山：约30分钟车程</p>
+                    <p>汉拿山→济州市区：约40分钟车程</p>
+                </div>
+            </div>
+            <div class="transportation-item">
+                <i class="fas fa-bus"></i>
+                <div>
+                    <p><strong>公交信息：</strong></p>
+                    <p>济州岛有多条环岛巴士线路，可通过济州巴士信息APP查询详细路线。</p>
+                    <p>推荐公交线路：202路（济州市区-咸德海滩），600路（济州市区-中文海滩）</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 住宿与餐饮区 -->
+        <div class="accommodation">
+            <div class="accommodation-section">
+                <h2><i class="fas fa-bed"></i> 住宿信息</h2>
+                <div class="accommodation-item">
+                    <h3><i class="fas fa-hotel"></i>咸德海景酒店</h3>
+                    <p><strong>地址：</strong>济州岛咸德海滩附近</p>
+                    <p><strong>价格：</strong>约700-1000元/晚</p>
+                    <p><strong>设施：</strong>WiFi、早餐、泳池、停车场</p>
+                    <p><strong>入住时间：</strong>14:00后，退房时间：12:00前</p>
+                </div>
+                <div class="accommodation-item">
+                    <h3><i class="fas fa-hotel"></i>中文海滩度假村</h3>
+                    <p><strong>地址：</strong>中文观光区海滩路</p>
+                    <p><strong>价格：</strong>约800-1200元/晚</p>
+                    <p><strong>设施：</strong>WiFi、早餐、温泉、健身房</p>
+                    <p><strong>入住时间：</strong>15:00后，退房时间：11:00前</p>
+                </div>
+            </div>
+            <div class="accommodation-section">
+                <h2><i class="fas fa-utensils"></i> 推荐餐厅</h2>
+                <div class="accommodation-item">
+                    <h3><i class="fas fa-fish"></i>济州海鲜市场餐厅</h3>
+                    <p><strong>特色：</strong>新鲜鲍鱼、海鲜火锅</p>
+                    <p><strong>价格：</strong>人均150-300元</p>
+                    <p><strong>地址：</strong>济州市东门路67号</p>
+                </div>
+                <div class="accommodation-item">
+                    <h3><i class="fas fa-drumstick-bite"></i>黑猪肉烤肉专门店</h3>
+                    <p><strong>特色：</strong>济州岛特产黑猪肉</p>
+                    <p><strong>价格：</strong>人均120-200元</p>
+                    <p><strong>地址：</strong>西归浦市中央路45号</p>
+                </div>
+                <div class="accommodation-item">
+                    <h3><i class="fas fa-coffee"></i>橘子咖啡馆</h3>
+                    <p><strong>特色：</strong>济州特产柑橘咖啡、甜点</p>
+                    <p><strong>价格：</strong>人均50-80元</p>
+                    <p><strong>地址：</strong>济州市海岸大道123号</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 实用信息区 -->
+        <div class="practical-info">
+            <h2><i class="fas fa-info-circle"></i> 实用信息</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <p><strong>紧急电话：</strong></p>
+                        <p>报警：112</p>
+                        <p>医疗急救：119</p>
+                        <p>旅游咨询：1330（提供中文服务）</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-coins"></i>
+                    <div>
+                        <p><strong>预算参考：</strong></p>
+                        <p>住宿：700-1200元/晚</p>
+                        <p>餐饮：150-300元/人/餐</p>
+                        <p>交通：租车约400元/天</p>
+                        <p>门票：约200元/人/天</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <p><strong>注意事项：</strong></p>
+                        <p>济州岛可使用信用卡，但建议携带现金</p>
+                        <p>夏季防晒必备，带好防晒霜</p>
+                        <p>海滩活动带好替换衣物</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-suitcase"></i>
+                    <div>
+                        <p><strong>行李清单：</strong></p>
+                        <p>护照及复印件</p>
+                        <p>防晒霜、太阳镜</p>
+                        <p>泳衣、换洗衣物</p>
+                        <p>雨伞/雨衣（以防下雨）</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 打印按钮 -->
+        <div class="print-button">
+            <button onclick="window.print()"><i class="fas fa-print"></i> 打印规划表</button>
+        </div>
+    </div>
+
+    <script>
+        // 简单的打印功能
+        function printItinerary() {
+            window.print();
+        }
+    </script>
+</body>
+</html> 
